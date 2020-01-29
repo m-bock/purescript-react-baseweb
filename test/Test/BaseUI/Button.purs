@@ -6,7 +6,6 @@ import BaseUI.Button (button)
 import BaseUI.Button as BaseUI
 import BaseUI.Button as Button
 import Effect (Effect)
-import Partial.Unsafe (unsafeCrashWith)
 import React as React
 import React.DOM as DOM
 import ReactDOM (renderToString)

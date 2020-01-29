@@ -30,9 +30,9 @@ babel-runtime@^6.26.0:
     regenerator-runtime "^0.11.0"
 
 baseui@^9.47.2:
-  version "9.47.2"
-  resolved "https://registry.yarnpkg.com/baseui/-/baseui-9.47.2.tgz#139377a5d6cc44a17bef57560d80e533f95eee1e"
-  integrity sha512-KxXv+MynBEzJ6CqMw7DKJgMC6i31oHQFWmrRQKkRS7Uw0AL5363h0Yyr/No1XYcKfeb/GtBCUr99O6xXTdSRIw==
+  version "9.48.0"
+  resolved "https://registry.yarnpkg.com/baseui/-/baseui-9.48.0.tgz#89a96fd15d9b2f9800b148aa7874f29a44928ace"
+  integrity sha512-OeBuQltHxHUYTv3irf4Nz/l3IqzaLV9eC4mJcEvaIX5FzvZs4NHFsxT9TrcAOczIDYQFhugWqcJuwqAl5lYgwA==
   dependencies:
     card-validator "^6.2.0"
     date-fns "^2.6.0"
