@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/thought2/purescript-baseweb.svg?branch=master)](https://travis-ci.org/thought2/purescript-baseweb)
 
-[Base Web React Components](https://baseweb.design/components/) wrapper library for PureScript.
+PureScript wrapper for [Base Web React Components](https://baseweb.design/components/).
 
 Uses Version `v9.49.2`
 

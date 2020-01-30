@@ -1,20 +1,25 @@
 let
-  sources =
-    builtins.mapAttrs (_: value: import value { }) (import ./nix/sources.nix);
+  sources = import ./nix/sources.nix;
+
+  nixpkgs = import sources.nixpkgs { };
+
+  easy-purescript-nix = import sources.easy-purescript-nix { pkgs = nixpkgs; };
+
+  yarn2nix = import sources.yarn2nix { pkgs = nixpkgs; };
 
 in import ./nondefault.nix {
-  mkDerivation = sources.nixpkgs.stdenv.mkDerivation;
-  nixfmt = sources.nixpkgs.nixfmt;
-  spago = sources.easy-purescript-nix.spago;
-  writeShellScriptBin = sources.nixpkgs.writeShellScriptBin;
-  purs = sources.easy-purescript-nix.purs-0_13_4;
-  yarn2nix = sources.yarn2nix;
-  yarn = sources.nixpkgs.yarn;
-  runCommand = sources.nixpkgs.runCommand;
-  spago2nix = sources.easy-purescript-nix.spago2nix;
-  fetchgit = sources.nixpkgs.fetchgit;
-  make = sources.nixpkgs.gnumake;
-  bash = sources.nixpkgs.bash;
-  nix-gitignore = sources.nixpkgs.nix-gitignore;
-  dhall = sources.nixpkgs.dhall;
+  mkDerivation = nixpkgs.stdenv.mkDerivation;
+  nixfmt = nixpkgs.nixfmt;
+  spago = easy-purescript-nix.spago;
+  writeShellScriptBin = nixpkgs.writeShellScriptBin;
+  purs = easy-purescript-nix.purs-0_13_4;
+  yarn2nix = yarn2nix;
+  yarn = nixpkgs.yarn;
+  runCommand = nixpkgs.runCommand;
+  spago2nix = easy-purescript-nix.spago2nix;
+  fetchgit = nixpkgs.fetchgit;
+  make = nixpkgs.gnumake;
+  bash = nixpkgs.bash;
+  nix-gitignore = nixpkgs.nix-gitignore;
+  dhall = nixpkgs.dhall;
 }
