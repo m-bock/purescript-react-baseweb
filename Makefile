@@ -1,7 +1,7 @@
 SHELL=/usr/bin/env bash
 
 build-example:
-	spago --config example/spago.dhall build
+	spago --config example/spago.dhall build --purs-args "--stash --strict"
 	parcel build --public-url "." example/simple.html
 
 format:

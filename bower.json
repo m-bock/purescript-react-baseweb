@@ -1,0 +1,26 @@
+{
+    "name": "purescript-baseui",
+    "license": [
+        "MIT"
+    ],
+    "repository": {
+        "type": "git",
+        "url": "github.com/thought2/purescript-baseui"
+    },
+    "ignore": [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "output"
+    ],
+    "dependencies": {
+        "purescript-console": "^v4.4.0",
+        "purescript-effect": "^v2.0.1",
+        "purescript-partial": "^v2.0.1",
+        "purescript-psci-support": "^v4.0.0",
+        "purescript-react": "^v8.0.0",
+        "purescript-react-dom": "^v6.1.0",
+        "purescript-test-unit": "^v15.0.0",
+        "purescript-typelevel-prelude": "^v5.0.2"
+    }
+}

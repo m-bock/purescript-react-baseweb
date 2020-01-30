@@ -22,7 +22,6 @@ import React (ReactClass)
 import React as React
 import Test.QuickCheck (class Arbitrary)
 import Test.QuickCheck.Arbitrary (genericArbitrary)
-import Unsafe.Coerce (unsafeCoerce)
 
 -- API
 --

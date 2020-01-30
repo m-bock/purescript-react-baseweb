@@ -1,11 +1,9 @@
 module BaseUI.Common where
 
-import Prelude
 import Data.Maybe (Maybe(..))
 import Data.Nullable (Nullable)
 import Data.Nullable as Nullable
 import React (ReactClass)
-import React as React
 
 type Override props styleProps
   = { component :: Maybe (ReactClass props)
