@@ -1,5 +1,14 @@
 language: nix
 nix: 2.3.2
+env:
+  global:
+    - STORE=$HOME/nix-store
+cache:
+  directories:
+    - $STORE
+before_install:
+  - sudo mkdir -p /etc/nix
+  - echo "binary-caches = https://cache.nixos.org/ file://$STORE" | sudo tee -a /etc/nix/nix.conf > /dev/null
 script: nix-shell --run 'make ci'
 deploy:
   provider: pages
