@@ -1,6 +1,6 @@
 language: nix
 nix: 2.3.2
-script: nix-shell --run 'make ci'
+script: nix-build
 deploy:
   provider: pages
   skip_cleanup: true

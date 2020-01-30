@@ -1,15 +1,15 @@
-{ name = "baseweb"
-, license = "MIT"
-, repository = "github.com/thought2/purescript-baseweb"
-, dependencies =
-    [ "console"
-    , "debug"
-    , "effect"
-    , "partial"
-    , "psci-support"
-    , "quickcheck"
-    , "react"
-    ]
-, packages = ./packages.dhall
-, sources = [ "src/**/*.purs" ]
-}
+let src = ./src/spago.dhall
+
+let test = ./test/spago.dhall
+
+let example = ./example/spago.dhall
+
+in  { name =
+        "baseweb-all"
+    , dependencies =
+        src.dependencies # test.dependencies # example.dependencies
+    , packages =
+        ./packages.dhall
+    , sources =
+        src.sources # test.dependencies # example.dependencies
+    }

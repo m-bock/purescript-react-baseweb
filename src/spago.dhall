@@ -1,19 +1,20 @@
 { name =
-    "baseui-test"
+    "baseweb"
 , license =
     "MIT"
+, repository =
+    "github.com/thought2/purescript-baseweb"
 , dependencies =
     [ "console"
+    , "debug"
     , "effect"
     , "partial"
     , "psci-support"
-    , "react"
     , "quickcheck"
-    , "test-unit"
-    , "react-dom"
+    , "react"
     ]
 , packages =
     ../packages.dhall
 , sources =
-    [ "src/**/*.purs", "test/**/*.purs" ]
+    [ "src/**/*.purs" ]
 }

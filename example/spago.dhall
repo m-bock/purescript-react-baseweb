@@ -1,6 +1,7 @@
 { name =
     "baseui-example"
-, license = "MIT"
+, license =
+    "MIT"
 , dependencies =
     [ "console"
     , "effect"
