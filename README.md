@@ -8,6 +8,12 @@ Uses Version `v9.49.2`
 
 - [API docs on Pursuit](http://pursuit.purescript.org/packages/purescript-baseui/)
 
+## Installation
+
+```
+bower install purescript-baseui
+```
+
 ## Usage
 
 ```haskell
@@ -21,7 +27,7 @@ app :: ReactElement
 app =
   React.createElement wrapProvider {}
     [ React.createElement button
-        ( Button.defaultButtonProps'
+        ( Button.defaultButtonProps
             { shape = Button.ShapePill
             , onClick = log "clicked!"
             }
@@ -34,74 +40,74 @@ See [examples](example) for more details.
 
 ## Coverage
 
-|                 | Component           | partly             | full               |
-| --------------- | ------------------- | ------------------ | ------------------ |
+|                 | Component           | partly             | full |
+| --------------- | ------------------- | ------------------ | ---- |
 | **Inputs**      |
-|                 | button              | :heavy_check_mark: | :white_check_mark: |
-|                 | button-group        | [ ]                | [ ]                |
-|                 | checkbox            | [ ]                | [ ]                |
-|                 | form-control        | [ ]                | [ ]                |
-|                 | input               | [ ]                | [ ]                |
-|                 | payment-card        | [ ]                | [ ]                |
-|                 | phone-input         | [ ]                | [ ]                |
-|                 | pin-code            | [ ]                | [ ]                |
-|                 | radio               | [ ]                | [ ]                |
-|                 | slider              | [ ]                | [ ]                |
-|                 | textarea            | [ ]                | [ ]                |
+|                 | button              | :heavy_check_mark: |      |
+|                 | button-group        |                    |      |
+|                 | checkbox            |                    |      |
+|                 | form-control        |                    |      |
+|                 | input               |                    |      |
+|                 | payment-card        |                    |      |
+|                 | phone-input         |                    |      |
+|                 | pin-code            |                    |      |
+|                 | radio               |                    |      |
+|                 | slider              |                    |      |
+|                 | textarea            |                    |      |
 | **Pickers**     |
-|                 | file-uploader       | [ ]                | [ ]                |
-|                 | menu                | [ ]                | [ ]                |
-|                 | rating              | [ ]                | [ ]                |
-|                 | select              | [ ]                | [ ]                |
+|                 | file-uploader       |                    |      |
+|                 | menu                |                    |      |
+|                 | rating              |                    |      |
+|                 | select              |                    |      |
 | **Date & Time** |
-|                 | datepicker          | [ ]                | [ ]                |
-|                 | time-picker         | [ ]                | [ ]                |
-|                 | timezone-picker     | [ ]                | [ ]                |
+|                 | datepicker          |                    |      |
+|                 | time-picker         |                    |      |
+|                 | timezone-picker     |                    |      |
 | **Navigation**  |
-|                 | breadcrumbs         | [ ]                | [ ]                |
-|                 | header-navigation   | [ ]                | [ ]                |
-|                 | link                | [ ]                | [ ]                |
-|                 | pagination          | [ ]                | [ ]                |
-|                 | side-nav            | [ ]                | [ ]                |
-|                 | tabs                | [ ]                | [ ]                |
+|                 | breadcrumbs         |                    |      |
+|                 | header-navigation   |                    |      |
+|                 | link                |                    |      |
+|                 | pagination          |                    |      |
+|                 | side-nav            |                    |      |
+|                 | tabs                |                    |      |
 | **Content**     |
-|                 | accordion           | [ ]                | [ ]                |
-|                 | avatar              | [ ]                | [ ]                |
-|                 | dnd-list            | [ ]                | [ ]                |
-|                 | layout-grid         | [ ]                | [ ]                |
-|                 | heading             | [ ]                | [ ]                |
-|                 | icon                | [ ]                | [ ]                |
-|                 | list                | [ ]                | [ ]                |
-|                 | tag                 | [ ]                | [ ]                |
-|                 | tree-view           | [ ]                | [ ]                |
-|                 | typography          | [ ]                | [ ]                |
+|                 | accordion           |                    |      |
+|                 | avatar              |                    |      |
+|                 | dnd-list            |                    |      |
+|                 | layout-grid         |                    |      |
+|                 | heading             |                    |      |
+|                 | icon                |                    |      |
+|                 | list                |                    |      |
+|                 | tag                 |                    |      |
+|                 | tree-view           |                    |      |
+|                 | typography          |                    |      |
 | **Tables**      |
-|                 | table               | [ ]                | [ ]                |
-|                 | unstable-data-table | [ ]                | [ ]                |
-|                 | table-grid          | [ ]                | [ ]                |
-|                 | table-semantic      | [ ]                | [ ]                |
+|                 | table               |                    |      |
+|                 | unstable-data-table |                    |      |
+|                 | table-grid          |                    |      |
+|                 | table-semantic      |                    |      |
 | **Feedback**    |
-|                 | notification        | [ ]                | [ ]                |
-|                 | progress-bar        | [ ]                | [ ]                |
-|                 | progress-steps      | [ ]                | [ ]                |
-|                 | spinner             | [ ]                | [ ]                |
-|                 | toast               | [ ]                | [ ]                |
+|                 | notification        |                    |      |
+|                 | progress-bar        |                    |      |
+|                 | progress-steps      |                    |      |
+|                 | spinner             |                    |      |
+|                 | toast               |                    |      |
 | **Surfaces**    |
-|                 | card                | [ ]                | [ ]                |
-|                 | drawer              | [ ]                | [ ]                |
-|                 | modal               | [ ]                | [ ]                |
-|                 | popover             | [ ]                | [ ]                |
-|                 | tooltip             | [ ]                | [ ]                |
+|                 | card                |                    |      |
+|                 | drawer              |                    |      |
+|                 | modal               |                    |      |
+|                 | popover             |                    |      |
+|                 | tooltip             |                    |      |
 | **Utility**     |
-|                 | aspect-ratio-box    | [ ]                | [ ]                |
-|                 | base-provider       | [x]                | [ ]                |
-|                 | block               | [ ]                | [ ]                |
-|                 | flex-grid           | [ ]                | [ ]                |
-|                 | layer               | [ ]                | [ ]                |
-|                 | use-styletron       | [ ]                | [ ]                |
-|                 | styled              | [ ]                | [ ]                |
-|                 | tokens              | [ ]                | [ ]                |
-|                 | unstable-a11y       | [ ]                | [ ]                |
+|                 | aspect-ratio-box    |                    |      |
+|                 | base-provider       | :heavy_check_mark: |      |
+|                 | block               |                    |      |
+|                 | flex-grid           |                    |      |
+|                 | layer               |                    |      |
+|                 | use-styletron       |                    |      |
+|                 | styled              |                    |      |
+|                 | tokens              |                    |      |
+|                 | unstable-a11y       |                    |      |
 
 ## LICENCE
 

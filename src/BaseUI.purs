@@ -1,19 +1,41 @@
+-- | - [Original source (v9.49.2)](https://github.com/uber/baseweb/blob/v9.49.2/src/index.js)
 module BaseUI
-  ( lightTheme
-  , darkTheme
-  , baseProvider
+  ( baseProvider
   , BaseProviderProps
+  , BaseProviderPropsMandatory
+  , BaseProviderPropsOptional
+  , defaultBaseProviderProps
   , Theme
+  , darkTheme
+  , lightTheme
   , BaseProviderOverrides
-  , BaseProviderProps'
-  , defaultBaseProviderProps'
-  , BaseProviderPropsRow'
   ) where
 
 import Prelude
 import React (ReactClass)
 import React as React
 
+-- API
+--
+baseProvider :: ReactClass BaseProviderProps
+baseProvider =
+  React.statelessComponent
+    (\props -> React.createLeafElement baseProviderImpl $ baseProviderPropsToImpl props)
+
+type BaseProviderProps
+  = { | BaseProviderPropsMandatory BaseProviderPropsOptional }
+
+type BaseProviderPropsMandatory r
+  = ( children :: React.Children | r )
+
+type BaseProviderPropsOptional
+  = ( theme :: Theme )
+
+defaultBaseProviderProps :: { | BaseProviderPropsOptional }
+defaultBaseProviderProps = { theme: lightTheme }
+
+-- INTERNAL
+--
 foreign import baseProviderImpl :: ReactClass BaseProviderPropsImpl
 
 foreign import data Theme :: Type
@@ -21,17 +43,6 @@ foreign import data Theme :: Type
 foreign import lightTheme :: Theme
 
 foreign import darkTheme :: Theme
-
--- --, overrides :: BaseProviderOverrides  --, zIndex :: Int
-type BaseProviderPropsRow'
-  = ( theme :: Theme
-    )
-
-type BaseProviderProps'
-  = { | BaseProviderPropsRow' }
-
-type BaseProviderProps
-  = { children :: React.Children | BaseProviderPropsRow' }
 
 type BaseProviderPropsImpl
   = { children :: React.Children
@@ -46,20 +57,11 @@ type BaseProviderOverrides
 type BaseProviderOverridesImpl
   = {}
 
--- | https://baseweb.design/components/base-provider
-baseProvider :: ReactClass BaseProviderProps
-baseProvider =
-  React.statelessComponent
-    (\props -> React.createLeafElement baseProviderImpl $ baseProviderPropsToImpl props)
-
 baseProviderPropsToImpl :: BaseProviderProps -> BaseProviderPropsImpl
 baseProviderPropsToImpl props = props --{ overrides = baseProviderOverridesToImpl props.overrides }
 
 baseProviderOverridesToImpl :: BaseProviderOverrides -> BaseProviderOverridesImpl
 baseProviderOverridesToImpl = identity
-
-defaultBaseProviderProps' :: BaseProviderProps'
-defaultBaseProviderProps' = { theme: lightTheme } -- {--, overrides: defaultBaseProviderOverrides --, zIndex: 0}
 
 defaultBaseProviderOverrides :: BaseProviderOverrides
 defaultBaseProviderOverrides = {}

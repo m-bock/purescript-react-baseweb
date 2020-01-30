@@ -1,13 +1,16 @@
+-- | - [Web documentation (v9-49-2)](https://v9-49-2.baseweb.design/components/button)
+-- | - [Original source (v9-49-2)](https://github.com/uber/baseweb/blob/v9.49.2/src/button/index.js)
 module BaseUI.Button
   ( button
+  , ButtonProps
+  , ButtonPropsMandatory
+  , ButtonPropsOptional
+  , defaultButtonProps
   , Kind(..)
   , Shape(..)
   , Size(..)
   , Type(..)
-  , ButtonProps
   , ButtonOverrides
-  , defaultButtonProps'
-  , ButtonPropsRow'
   ) where
 
 import Prelude
@@ -21,7 +24,53 @@ import Test.QuickCheck (class Arbitrary)
 import Test.QuickCheck.Arbitrary (genericArbitrary)
 import Unsafe.Coerce (unsafeCoerce)
 
-foreign import buttonImpl :: ReactClass ButtonPropsImpl
+-- API
+--
+-- | Main component
+button :: ReactClass ButtonProps
+button =
+  React.statelessComponent
+    (\props -> React.createLeafElement buttonImpl $ buttonPropsToImpl props)
+
+type ButtonProps
+  = { | ButtonPropsMandatory ButtonPropsOptional }
+
+type ButtonPropsOptional
+  = ( disabled :: Boolean
+    --, endEnhancer :: Unit -> ReactElement
+    --, isLoading :: Boolean
+    --, isSelected :: Boolean
+    --, kind :: Kind
+    , onClick :: Effect Unit
+    --   , overrides :: ButtonOverrides
+    , shape :: Shape
+    --, size :: Size
+    --, startEnhancer :: Unit -> ReactElement
+    --, type :: Type 
+    )
+
+type ButtonPropsMandatory r
+  = ( children :: React.Children
+    | r
+    )
+
+defaultButtonProps :: { | ButtonPropsOptional }
+defaultButtonProps =
+  { disabled: false
+  --, endEnhancer: const $ DOM.text ""
+  --, isLoading: false
+  --, isSelected: false
+  --, kind: KindPrimary
+  , onClick: pure unit
+  -- , overrides: defaultButtonOverrides
+  , shape: ShapeDefault
+  --, size: SizeDefault
+  --, startEnhancer: const $ DOM.text ""
+  --, type: TypeButton
+  }
+
+type ButtonOverrides
+  = { baseButton :: Override {} {} }
 
 data Kind
   = KindPrimary
@@ -46,33 +95,12 @@ data Type
   | TypeReset
   | TypeButton
 
-type ButtonOverrides
-  = { baseButton :: Override {} {} }
+-- INTERNAL
+--
+foreign import buttonImpl :: ReactClass ButtonPropsImpl
 
 type ButtonOverridesImpl
   = { baseButton :: OverrideImpl {} {} }
-
-type ButtonPropsRow'
-  = ( disabled :: Boolean
-    --, endEnhancer :: Unit -> ReactElement
-    --, isLoading :: Boolean
-    --, isSelected :: Boolean
-    --, kind :: Kind
-    , onClick :: Effect Unit
-    --   , overrides :: ButtonOverrides
-    , shape :: Shape
-    --, size :: Size
-    --, startEnhancer :: Unit -> ReactElement
-    --, type :: Type
-    )
-
-type ButtonProps'
-  = { | ButtonPropsRow' }
-
-type ButtonProps
-  = { children :: React.Children
-    | ButtonPropsRow'
-    }
 
 type ButtonPropsImpl
   = { children :: React.Children
@@ -88,27 +116,6 @@ type ButtonPropsImpl
     --, startEnhancer :: Fn1 Unit ReactElement
     --, type :: String
     }
-
--- | https://baseweb.design/components/button/
-button :: ReactClass ButtonProps
-button =
-  React.statelessComponent
-    (\props -> React.createLeafElement buttonImpl $ buttonPropsToImpl props)
-
-defaultButtonProps' :: ButtonProps'
-defaultButtonProps' =
-  { disabled: false
-  --, endEnhancer: const $ DOM.text ""
-  --, isLoading: false
-  --, isSelected: false
-  --, kind: KindPrimary
-  , onClick: pure unit
-  -- , overrides: defaultButtonOverrides
-  , shape: ShapeDefault
-  --, size: SizeDefault
-  --, startEnhancer: const $ DOM.text ""
-  --, type: TypeButton
-  }
 
 defaultButtonOverrides :: ButtonOverrides
 defaultButtonOverrides = { baseButton: defaultOverride }

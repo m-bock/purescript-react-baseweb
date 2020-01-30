@@ -1,19 +1,17 @@
 module Example.Simple where
 
 import Prelude
-import BaseUI (baseProvider, defaultBaseProviderProps')
-import BaseUI.Button (Shape(..), button, defaultButtonProps')
+import BaseUI (baseProvider, defaultBaseProviderProps)
+import BaseUI.Button (button)
 import BaseUI.Button as Button
 import Data.Maybe (Maybe(..))
-import Data.Symbol (SProxy(..))
-import Debug.Trace (spy)
 import Effect (Effect)
 import Effect.Class.Console (log)
 import React (ReactClass, ReactElement)
 import React as React
 import React.DOM as VDOM
 import ReactDOM (render)
-import Record (delete, union)
+import Record (union)
 import Styletron.EngineAtomic as EngineAtomic
 import Styletron.React as Styletron
 import Web.DOM.NonElementParentNode (getElementById) as DOM
@@ -27,7 +25,7 @@ wrapProvider =
     React.createElement Styletron.provider
       { value: EngineAtomic.mkClient unit }
       [ React.createLeafElement baseProvider
-          ( defaultBaseProviderProps'
+          ( defaultBaseProviderProps
               `union`
                 { children: props.children }
           )
@@ -37,7 +35,7 @@ app :: ReactElement
 app =
   React.createElement wrapProvider {}
     [ React.createElement button
-        ( Button.defaultButtonProps'
+        ( Button.defaultButtonProps
             { shape = Button.ShapePill
             , onClick = log "clicked!"
             }
