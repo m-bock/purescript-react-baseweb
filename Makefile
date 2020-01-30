@@ -11,4 +11,6 @@ format:
 check:
 	shopt -s globstar; nixfmt --check **/*.nix
 	shopt -s globstar; purty-check **/*.purs
-	spago test --purs-args "--stash --strict"
+	spago --config test/spago.dhall test --purs-args "--stash --strict"
+
+ci: check build-example
