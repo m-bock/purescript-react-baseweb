@@ -1,6 +1,6 @@
-{ name = "baseui"
+{ name = "baseweb"
 , license = "MIT"
-, repository = "github.com/thought2/purescript-baseui"
+, repository = "github.com/thought2/purescript-baseweb"
 , dependencies =
     [ "console"
     , "debug"

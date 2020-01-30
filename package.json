@@ -1,5 +1,5 @@
 {
-  "name": "baseui-dev",
+  "name": "purescript-baseweb-dev",
   "version": "1.0.0",
   "devDependencies": {
     "baseui": "^9.47.2",

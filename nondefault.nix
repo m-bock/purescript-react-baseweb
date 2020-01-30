@@ -19,8 +19,8 @@ let
   '';
 
   yarnPackage = yarn2nix.mkYarnPackage {
-    pname = "baseui-dev";
-    name = "baseui-dev";
+    pname = "purescript-baseweb-dev";
+    name = "purescript-baseweb-dev";
     version = "1.0.0";
     src = ./.;
     publishBinsFor = [ "purescript-psa" "parcel" ];
@@ -30,7 +30,7 @@ let
   };
 
 in mkDerivation {
-  name = "test";
+  name = "baseweb-env";
   shellHook = "PATH=$PATH:${yarnPackage}/bin";
   buildInputs = [ nixfmt spago purty-check purty-format purs yarn ];
   buildCommand = "";

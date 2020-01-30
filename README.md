@@ -1,17 +1,17 @@
-# purescript-baseui
+# purescript-baseweb
 
-[![Build Status](https://travis-ci.org/thought2/purescript-sized-vectors.svg?branch=master)](https://travis-ci.org/thought2/purescript-sized-vectors)
+[![Build Status](https://travis-ci.org/thought2/purescript-baseweb.svg?branch=master)](https://travis-ci.org/thought2/purescript-baseweb)
 
-[Base Web React Components](https://baseweb.design/components/) for PureScript.
+[Base Web React Components](https://baseweb.design/components/) wrapper library for PureScript.
 
 Uses Version `v9.49.2`
 
-- [API docs on Pursuit](http://pursuit.purescript.org/packages/purescript-baseui/)
+- [API docs on Pursuit](http://pursuit.purescript.org/packages/purescript-baseweb/)
 
 ## Installation
 
 ```
-bower install purescript-baseui
+bower install purescript-baseweb
 ```
 
 ## Usage
