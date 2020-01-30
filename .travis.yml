@@ -8,6 +8,7 @@ cache:
     - $STORE
 before_install:
   - sudo mkdir -p /etc/nix
+  - cat /etc/nix/nix.conf
   - echo "binary-caches = https://cache.nixos.org/ file://$STORE" | sudo tee -a /etc/nix/nix.conf > /dev/null
 script: nix-shell --run 'make ci'
 deploy:
