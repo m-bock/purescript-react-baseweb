@@ -1,23 +1,22 @@
 module BaseUI.Button
   ( button
-  , Kind
-  , Shape
-  , Size
-  , Type
+  , Kind(..)
+  , Shape(..)
+  , Size(..)
+  , Type(..)
   , ButtonProps
   , ButtonOverrides
-  , defaultButtonProps
+  , defaultButtonProps'
+  , ButtonPropsRow'
   ) where
 
 import Prelude
-import BaseUI (Override, OverrideImpl, defaultOverride, overrideToImpl)
-import Data.Function.Uncurried (Fn1, mkFn1)
+import BaseUI.Common (Override, OverrideImpl, defaultOverride, overrideToImpl)
 import Data.Generic.Rep (class Generic)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1, mkEffectFn1)
-import React (ReactClass, ReactElement)
+import React (ReactClass)
 import React as React
-import React.DOM as DOM
 import Test.QuickCheck (class Arbitrary)
 import Test.QuickCheck.Arbitrary (genericArbitrary)
 import Unsafe.Coerce (unsafeCoerce)
@@ -53,72 +52,78 @@ type ButtonOverrides
 type ButtonOverridesImpl
   = { baseButton :: OverrideImpl {} {} }
 
+type ButtonPropsRow'
+  = ( disabled :: Boolean
+    --, endEnhancer :: Unit -> ReactElement
+    --, isLoading :: Boolean
+    --, isSelected :: Boolean
+    --, kind :: Kind
+    , onClick :: Effect Unit
+    --   , overrides :: ButtonOverrides
+    , shape :: Shape
+    --, size :: Size
+    --, startEnhancer :: Unit -> ReactElement
+    --, type :: Type
+    )
+
+type ButtonProps'
+  = { | ButtonPropsRow' }
+
 type ButtonProps
   = { children :: React.Children
-    , disabled :: Boolean
-    , endEnhancer :: Unit -> ReactElement
-    , isLoading :: Boolean
-    , isSelected :: Boolean
-    , kind :: Kind
-    , onClick :: Effect Unit
-    , overrides :: ButtonOverrides
-    , shape :: Shape
-    , size :: Size
-    , startEnhancer :: Unit -> ReactElement
-    , type :: Type
+    | ButtonPropsRow'
     }
 
 type ButtonPropsImpl
   = { children :: React.Children
     , disabled :: Boolean
-    , endEnhancer :: Fn1 Unit ReactElement
-    , isLoading :: Boolean
-    , isSelected :: Boolean
-    , kind :: String
+    --, endEnhancer :: Fn1 Unit ReactElement
+    --, isLoading :: Boolean
+    --, isSelected :: Boolean
+    --, kind :: String
     , onClick :: EffectFn1 Unit Unit
-    , overrides :: ButtonOverridesImpl
+    --  , overrides :: ButtonOverridesImpl
     , shape :: String
-    , size :: String
-    , startEnhancer :: Fn1 Unit ReactElement
-    , type :: String
+    --, size :: String
+    --, startEnhancer :: Fn1 Unit ReactElement
+    --, type :: String
     }
 
 -- | https://baseweb.design/components/button/
 button :: ReactClass ButtonProps
 button =
   React.statelessComponent
-    (\props -> React.createLeafElement buttonImpl $ propsToImpl props)
+    (\props -> React.createLeafElement buttonImpl $ buttonPropsToImpl props)
 
-defaultButtonProps :: ButtonProps
-defaultButtonProps =
-  { children: unsafeCoerce []
-  , disabled: false
-  , endEnhancer: const $ DOM.text ""
-  , isLoading: false
-  , isSelected: false
-  , kind: KindPrimary
+defaultButtonProps' :: ButtonProps'
+defaultButtonProps' =
+  { disabled: false
+  --, endEnhancer: const $ DOM.text ""
+  --, isLoading: false
+  --, isSelected: false
+  --, kind: KindPrimary
   , onClick: pure unit
-  , overrides: defaultButtonOverrides
+  -- , overrides: defaultButtonOverrides
   , shape: ShapeDefault
-  , size: SizeDefault
-  , startEnhancer: const $ DOM.text ""
-  , type: TypeButton
+  --, size: SizeDefault
+  --, startEnhancer: const $ DOM.text ""
+  --, type: TypeButton
   }
 
 defaultButtonOverrides :: ButtonOverrides
 defaultButtonOverrides = { baseButton: defaultOverride }
 
-propsToImpl :: ButtonProps -> ButtonPropsImpl
-propsToImpl props =
+buttonPropsToImpl :: ButtonProps -> ButtonPropsImpl
+buttonPropsToImpl props =
   props
-    { endEnhancer = mkFn1 props.endEnhancer
-    , kind = kindToString props.kind
-    , onClick = mkEffectFn1 \_ -> props.onClick
-    , overrides = buttonOverridesToImpl props.overrides
+    -- endEnhancer = mkFn1 props.endEnhancer  
+    -- , kind = kindToString props.kind
+    { onClick = mkEffectFn1 \_ -> props.onClick
+    --   , overrides = buttonOverridesToImpl props.overrides
     , shape = shapeToString props.shape
-    , size = sizeToString props.size
-    , startEnhancer = mkFn1 props.startEnhancer
-    , type = typeToString props.type
+    -- , size = sizeToString props.size
+    -- , startEnhancer = mkFn1 props.startEnhancer
+    -- , type = typeToString props.type
     }
 
 buttonOverridesToImpl :: ButtonOverrides -> ButtonOverridesImpl

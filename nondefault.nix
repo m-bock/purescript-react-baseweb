@@ -23,7 +23,7 @@ let
     name = "baseui-dev";
     version = "1.0.0";
     src = ./.;
-    publishBinsFor = [ "purescript-psa" ];
+    publishBinsFor = [ "purescript-psa" "parcel" ];
 
     packageJSON = ./package.json;
     yarnLock = ./yarn.lock;

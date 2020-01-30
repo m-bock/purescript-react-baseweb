@@ -1,19 +1,15 @@
-{ name =
-    "baseui"
+{ name = "baseui"
 , license = "MIT"
 , repository = "github.com/thought2/purescript-baseui"
 , dependencies =
     [ "console"
+    , "debug"
     , "effect"
     , "partial"
     , "psci-support"
+    , "quickcheck"
     , "react"
-    , "react-dom"
-    , "test-unit"
-    , "typelevel-prelude"
     ]
-, packages =
-    ./packages.dhall
-, sources =
-    [ "src/**/*.purs", "test/**/*.purs" ]
+, packages = ./packages.dhall
+, sources = [ "src/**/*.purs" ]
 }

@@ -1,41 +1,65 @@
-module BaseUI where
+module BaseUI
+  ( lightTheme
+  , darkTheme
+  , baseProvider
+  , BaseProviderProps
+  , Theme
+  , BaseProviderOverrides
+  , BaseProviderProps'
+  , defaultBaseProviderProps'
+  , BaseProviderPropsRow'
+  ) where
 
-import Data.Maybe (Maybe(..))
-import Data.Nullable (Nullable)
-import Data.Nullable as Nullable
+import Prelude
 import React (ReactClass)
+import React as React
 
-type Override props styleProps
-  = { component :: Maybe (ReactClass props)
-    , styles :: Maybe (styleProps -> Styles)
-    , props :: Maybe props
+foreign import baseProviderImpl :: ReactClass BaseProviderPropsImpl
+
+foreign import data Theme :: Type
+
+foreign import lightTheme :: Theme
+
+foreign import darkTheme :: Theme
+
+-- --, overrides :: BaseProviderOverrides  --, zIndex :: Int
+type BaseProviderPropsRow'
+  = ( theme :: Theme
+    )
+
+type BaseProviderProps'
+  = { | BaseProviderPropsRow' }
+
+type BaseProviderProps
+  = { children :: React.Children | BaseProviderPropsRow' }
+
+type BaseProviderPropsImpl
+  = { children :: React.Children
+    -- , overrides :: BaseProviderOverridesImpl
+    , theme :: Theme
+    --, zIndex :: Int
     }
 
-type OverrideImpl props styleProps
-  = { component :: Nullable (ReactClass props)
-    , styles :: Nullable (styleProps -> Styles)
-    , props :: Nullable props
-    }
-
-overrideToImpl :: forall props styleProps. Override props styleProps -> OverrideImpl props styleProps
-overrideToImpl props =
-  { component: Nullable.toNullable props.component
-  , styles: Nullable.toNullable props.styles
-  , props: Nullable.toNullable props.props
-  }
-
-type Theme
+type BaseProviderOverrides
   = {}
 
-type Styles
+type BaseProviderOverridesImpl
   = {}
 
-type T a
-  = {}
+-- | https://baseweb.design/components/base-provider
+baseProvider :: ReactClass BaseProviderProps
+baseProvider =
+  React.statelessComponent
+    (\props -> React.createLeafElement baseProviderImpl $ baseProviderPropsToImpl props)
 
-defaultOverride :: Override {} {}
-defaultOverride =
-  { component: Nothing
-  , styles: Nothing
-  , props: Nothing
-  }
+baseProviderPropsToImpl :: BaseProviderProps -> BaseProviderPropsImpl
+baseProviderPropsToImpl props = props --{ overrides = baseProviderOverridesToImpl props.overrides }
+
+baseProviderOverridesToImpl :: BaseProviderOverrides -> BaseProviderOverridesImpl
+baseProviderOverridesToImpl = identity
+
+defaultBaseProviderProps' :: BaseProviderProps'
+defaultBaseProviderProps' = { theme: lightTheme } -- {--, overrides: defaultBaseProviderOverrides --, zIndex: 0}
+
+defaultBaseProviderOverrides :: BaseProviderOverrides
+defaultBaseProviderOverrides = {}
