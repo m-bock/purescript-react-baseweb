@@ -1,11 +1,11 @@
 {
-    "name": "purescript-baseui",
+    "name": "purescript-react-baseweb",
     "license": [
         "MIT"
     ],
     "repository": {
         "type": "git",
-        "url": "github.com/thought2/purescript-baseui"
+        "url": "github.com/thought2/purescript-react-baseweb"
     },
     "ignore": [
         "**/.*",
@@ -15,12 +15,11 @@
     ],
     "dependencies": {
         "purescript-console": "^v4.4.0",
+        "purescript-debug": "^v4.0.0",
         "purescript-effect": "^v2.0.1",
         "purescript-partial": "^v2.0.1",
         "purescript-psci-support": "^v4.0.0",
-        "purescript-react": "^v8.0.0",
-        "purescript-react-dom": "^v6.1.0",
-        "purescript-test-unit": "^v15.0.0",
-        "purescript-typelevel-prelude": "^v5.0.2"
+        "purescript-quickcheck": "^v6.1.0",
+        "purescript-react": "^v8.0.0"
     }
 }
