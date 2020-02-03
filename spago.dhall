@@ -5,7 +5,7 @@ let test = ./test/spago.dhall
 let example = ./example/spago.dhall
 
 in  { name =
-        "baseweb-all"
+        "react-baseweb-all"
     , dependencies =
         src.dependencies # test.dependencies # example.dependencies
     , packages =

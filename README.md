@@ -1,17 +1,17 @@
 # purescript-baseweb
 
-[![Build Status](https://travis-ci.org/thought2/purescript-baseweb.svg?branch=master)](https://travis-ci.org/thought2/purescript-baseweb)
+[![Build Status](https://travis-ci.org/thought2/purescript-react-baseweb.svg?branch=master)](https://travis-ci.org/thought2/purescript-react-baseweb)
 
 PureScript wrapper for [Base Web React Components](https://baseweb.design/components/).
 
 Uses Version `v9.49.2`
 
-- [API docs on Pursuit](http://pursuit.purescript.org/packages/purescript-baseweb/)
+- [API docs on Pursuit](http://pursuit.purescript.org/packages/purescript-react-baseweb/)
 
 ## Installation
 
 ```
-bower install purescript-baseweb
+bower install purescript-react-baseweb
 ```
 
 ## Usage

@@ -1,5 +1,5 @@
 { name =
-    "baseui-test"
+    "react-baseweb-test"
 , license =
     "MIT"
 , dependencies =

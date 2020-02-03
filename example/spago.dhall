@@ -1,5 +1,5 @@
 { name =
-    "baseui-example"
+    "react-baseweb-example"
 , license =
     "MIT"
 , dependencies =

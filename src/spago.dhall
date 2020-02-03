@@ -1,9 +1,9 @@
 { name =
-    "baseweb"
+    "react-baseweb"
 , license =
     "MIT"
 , repository =
-    "github.com/thought2/purescript-baseweb"
+    "github.com/thought2/purescript-react-baseweb"
 , dependencies =
     [ "console"
     , "debug"
