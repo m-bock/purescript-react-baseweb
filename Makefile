@@ -59,7 +59,7 @@ build-src:
 	$(psa) src/**/*.purs
 
 build-example:
-	$(psa) @(src|example)/**/*.purs \
+	$(psa) @(src|example)/**/*.purs
 	parcel build --public-url "." example/simple.html
 
 build-test:
