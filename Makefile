@@ -1,5 +1,12 @@
 SHELL=/usr/bin/env bash -O globstar -O extglob
 
+psa := psa \
+		.spago/*/*/src/**/*.purs \
+		--is-lib=.spago \
+		--strict \
+		--stash \
+		--censor-lib
+
 default: check-format build check-test
 
 install:
@@ -49,32 +56,14 @@ format: format-nix format-purs format-dhall
 check-format: check-format-nix check-format-purs check-format-dhall
 
 build-src:
-	psa \
-		src/**/*.purs \
-		.spago/*/*/src/**/*.purs \
-		--is-lib=.spago \
-		--strict \
-		--stash \
-		--censor-lib
+	$(psa) src/**/*.purs
 
 build-example:
-	psa \
-		@(src|example)/**/*.purs \
-		.spago/*/*/src/**/*.purs \
-		--is-lib=.spago \
-		--strict \
-		--stash \
-		--censor-lib
+	$(psa) @(src|example)/**/*.purs \
 	parcel build --public-url "." example/simple.html
 
 build-test:
-	psa \
-		@(test|src)/**/*.purs \
-		.spago/*/*/src/**/*.purs \
-		--is-lib=.spago \
-		--strict \
-		--stash \
-		--censor-lib
+	$(psa) @(test|src)/**/*.purs
 
 build: build-src build-example build-test
 	

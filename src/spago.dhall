@@ -5,9 +5,7 @@
 , repository =
     "git://github.com/thought2/purescript-react-baseweb.git"
 , dependencies =
-    [ "quickcheck"
-    , "react"
-    ]
+    [ "quickcheck", "react" ]
 , packages =
     ../packages.dhall
 , sources =
