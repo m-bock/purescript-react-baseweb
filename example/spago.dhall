@@ -3,17 +3,7 @@
 , license =
     "MIT"
 , dependencies =
-    [ "console"
-    , "effect"
-    , "partial"
-    , "psci-support"
-    , "react"
-    , "quickcheck"
-    , "test-unit"
-    , "react-dom"
-    , "web-html"
-    , "debug"
-    ]
+    (../src/spago.dhall).dependencies # [ "react-dom", "web-html" ]
 , packages =
     ../packages.dhall
 , sources =

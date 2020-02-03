@@ -12,22 +12,22 @@ clean:
 format-nix:
 	for src in `git ls-files '*.nix'` ; do \
 		nixfmt $$src; \
-	done \
+	done
 
 format-purs:
 	for src in `git ls-files '*.purs'` ; do \
 		purty $$src --write; \
-	done \
+	done
 
 format-dhall:
 	for src in `git ls-files '*.dhall'` ; do \
 		dhall format --inplace $$src; \
-	done \
+	done
 
 check-format-nix:
 	for src in `git ls-files '*.nix'` ; do \
 		nixfmt --check $$src; \
-	done \
+	done
 
 check-format-purs:
 	for src in `git ls-files '*.purs'` ; do \
@@ -37,30 +37,46 @@ check-format-purs:
 			echo "$$src not formatted." ; \
 			exit 1 ; \
 		fi \
-	done \
+	done
 
 check-format-dhall:
 	for src in `git ls-files '*.dhall'` ; do \
 		cat $$src | dhall format --check ; \
-	done \
+	done
 
 format: format-nix format-purs format-dhall
 
 check-format: check-format-nix check-format-purs check-format-dhall
 
-build-purescript:
+build-src:
 	psa \
-		@(src|test|example)/**/*.purs \
+		src/**/*.purs \
 		.spago/*/*/src/**/*.purs \
 		--is-lib=.spago \
 		--strict \
 		--stash \
-		--censor-lib \
+		--censor-lib
 
-build-parcel:
+build-example:
+	psa \
+		@(src|example)/**/*.purs \
+		.spago/*/*/src/**/*.purs \
+		--is-lib=.spago \
+		--strict \
+		--stash \
+		--censor-lib
 	parcel build --public-url "." example/simple.html
 
-build: build-purescript build-parcel
+build-test:
+	psa \
+		@(test|src)/**/*.purs \
+		.spago/*/*/src/**/*.purs \
+		--is-lib=.spago \
+		--strict \
+		--stash \
+		--censor-lib
+
+build: build-src build-example build-test
 	
 check-test:
 	node -e "require('./output/Test.Main').main()"
@@ -68,4 +84,6 @@ check-test:
 check: check-format check-test
 
 nix-generate:
-	spago2nix generate
+	cd src; spago2nix generate
+	cd test; spago2nix generate
+	cd example; spago2nix generate

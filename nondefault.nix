@@ -1,5 +1,5 @@
 { runCommand, mkDerivation, nixfmt, spago, writeShellScriptBin, purs, yarn2nix
-, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall , git, nodejs }:
+, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall, git, nodejs }:
 
 let
   packageJsonMeta = {
@@ -21,21 +21,20 @@ let
 
   yarnModules = yarn2nix.mkYarnModules packageJsonMeta;
 
-  spagoPkgs = import ./spago-packages.nix {
-    pkgs = {
-      stdenv = { inherit mkDerivation; };
-      inherit fetchgit;
-      inherit runCommand;
-    };
+  spagoPkgs = let
+    importSpagoPackages = path:
+      import "${path}/spago-packages.nix" {
+        pkgs = {
+          stdenv = { inherit mkDerivation; };
+          inherit fetchgit;
+          inherit runCommand;
+        };
+      };
+  in {
+    src = importSpagoPackages ./src;
+    example = importSpagoPackages ./example;
+    test = importSpagoPackages ./test;
   };
-
-  spagoSrcs = runCommand "src" { } ''
-    mkdir $out
-    shopt -s globstar
-    cp -rf ${./src}/* -t $out
-    cp -rf ${./example}/* -t $out
-    cp -rf ${./test}/* -t $out
-  '';
 
   cleanSrc = runCommand "src" { } ''
     mkdir $out
@@ -43,23 +42,17 @@ let
     ln -s ${yarnModules}/node_modules $out/node_modules
   '';
 
+  make' = writeShellScriptBin "make" ''
+    ${make}/bin/make SHELL="${bash}/bin/bash -O globstar -O extglob" $@
+  '';
+
 in mkDerivation {
   name = "baseweb-env";
   shellHook = "PATH=$PATH:${yarnPackage}/bin";
-  buildInputs = [
-    nixfmt
-    spago
-    purs
-    yarn
-    spago2nix
-    make
-    dhall
-    git
-    nodejs
-  ];
+  buildInputs = [ nixfmt spago purs yarn spago2nix make' dhall git nodejs ];
   buildCommand = ''
     TMP=`mktemp -d`
-    
+
     cd $TMP
 
     git init
@@ -68,9 +61,18 @@ in mkDerivation {
 
     cp -r ${cleanSrc}/* .
 
-    bash ${spagoPkgs.installSpagoStyle}
+    rm -rf .spago dist output
+    bash ${spagoPkgs.src.installSpagoStyle}
+    make build-src
 
-    make SHELL="${bash}/bin/bash -O globstar -O extglob"
+    rm -rf .spago dist output
+    bash ${spagoPkgs.test.installSpagoStyle}
+    make build-test
+    make check-test
+
+    rm -rf .spago dist output
+    bash ${spagoPkgs.example.installSpagoStyle}
+    make build-example
 
     mkdir $out
 
