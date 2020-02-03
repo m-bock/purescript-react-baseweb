@@ -3,7 +3,7 @@
 , license =
     "MIT"
 , repository =
-    "github.com/thought2/purescript-react-baseweb"
+    "git://github.com/thought2/purescript-react-baseweb.git"
 , dependencies =
     [ "quickcheck"
     , "react"
