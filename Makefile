@@ -1,6 +1,6 @@
-SHELL=/usr/bin/env bash
+SHELL=/usr/bin/env bash -O globstar -O extglob
 
-default: check-format test build
+default: check-format build check-test
 
 install:
 	yarn install
@@ -9,22 +9,63 @@ install:
 clean:
 	rm -rf dist output node_modules
 
-format:
-	shopt -s globstar; nixfmt **/*.nix
-	shopt -s globstar; purty-format **/*.purs
-	shopt -s globstar; dhall-format **/*.dhall
+format-nix:
+	for src in `git ls-files '*.nix'` ; do \
+		nixfmt $$src; \
+	done \
 
-check-format:
-	shopt -s globstar; nixfmt --check **/*.nix
-	shopt -s globstar; purty-check **/*.purs
-	shopt -s globstar; dhall-check **/*.dhall
+format-purs:
+	for src in `git ls-files '*.purs'` ; do \
+		purty $$src --write; \
+	done \
 
-build:
-	psa '.spago/*/*/src/**/*.purs' 'src/**/*.purs' 'test/**/*.purs' 'example/**/*.purs' --is-lib=.spago --strict --stash --censor-lib
+format-dhall:
+	for src in `git ls-files '*.dhall'` ; do \
+		dhall format --inplace $$src; \
+	done \
+
+check-format-nix:
+	for src in `git ls-files '*.nix'` ; do \
+		nixfmt --check $$src; \
+	done \
+
+check-format-purs:
+	for src in `git ls-files '*.purs'` ; do \
+		ACTUAL="`cat $$src`" ; \
+		EXPECTED="`purty $$src`" ; \
+		if test "$$ACTUAL" != "$$EXPECTED" ; then \
+			echo "$$src not formatted." ; \
+			exit 1 ; \
+		fi \
+	done \
+
+check-format-dhall:
+	for src in `git ls-files '*.dhall'` ; do \
+		cat $$src | dhall format --check ; \
+	done \
+
+format: format-nix format-purs format-dhall
+
+check-format: check-format-nix check-format-purs check-format-dhall
+
+build-purescript:
+	psa \
+		@(src|test|example)/**/*.purs \
+		.spago/*/*/src/**/*.purs \
+		--is-lib=.spago \
+		--strict \
+		--stash \
+		--censor-lib \
+
+build-parcel:
 	parcel build --public-url "." example/simple.html
+
+build: build-purescript build-parcel
 	
-test:
-	node -e "require('./output/Test/Main/index.js').main()"
+check-test:
+	node -e "require('./output/Test.Main').main()"
+
+check: check-format check-test
 
 nix-generate:
 	spago2nix generate

@@ -1,35 +1,7 @@
 { runCommand, mkDerivation, nixfmt, spago, writeShellScriptBin, purs, yarn2nix
-, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall }:
+, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall , git, nodejs }:
 
 let
-  purty-check = writeShellScriptBin "purty-check" ''
-    for file in $@ ; do
-    	ACTUAL=`cat $file`
-    	EXPECTED=`purty $file`
-    	if test "$EXPECTED" != "$ACTUAL" ; then
-    		echo "$file not formatted.";
-    	fi
-    done
-  '';
-
-  purty-format = writeShellScriptBin "purty-format" ''
-    for file in $@ ; do
-        purty $file --write
-    done
-  '';
-
-  dhall-check = writeShellScriptBin "dhall-check" ''
-    for file in $@ ; do
-        cat $file | dhall format --check
-    done
-  '';
-
-  dhall-format = writeShellScriptBin "dhall-format" ''
-    for file in $@ ; do
-        dhall format --inplace $file
-    done
-  '';
-
   packageJsonMeta = {
     pname = "purescript-baseweb-dev";
     name = "purescript-baseweb-dev";
@@ -64,18 +36,12 @@ let
     cp -rf ${./example}/* -t $out
     cp -rf ${./test}/* -t $out
   '';
-  /* spagoOutput = spagoPkgs.mkBuildProjectOutput {
-       src = spagoSrcs;
-       inherit purs;
-     };
-  */
+
   cleanSrc = runCommand "src" { } ''
     mkdir $out
     cp -r ${nix-gitignore.gitignoreSource [ ] ./.}/* -t $out
     ln -s ${yarnModules}/node_modules $out/node_modules
   '';
-
-  # ln -s ${spagoOutput} $out/output
 
 in mkDerivation {
   name = "baseweb-env";
@@ -83,20 +49,20 @@ in mkDerivation {
   buildInputs = [
     nixfmt
     spago
-    purty-check
-    purty-format
-    dhall-check
-    dhall-format
     purs
     yarn
     spago2nix
     make
     dhall
+    git
+    nodejs
   ];
   buildCommand = ''
     TMP=`mktemp -d`
-
+    
     cd $TMP
+
+    git init
 
     PATH=$PATH:${yarnPackage}/bin
 
@@ -104,7 +70,7 @@ in mkDerivation {
 
     bash ${spagoPkgs.installSpagoStyle}
 
-    make SHELL=${bash}/bin/bash
+    make SHELL="${bash}/bin/bash -O globstar -O extglob"
 
     mkdir $out
 

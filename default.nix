@@ -22,4 +22,6 @@ in import ./nondefault.nix {
   bash = nixpkgs.bash;
   nix-gitignore = nixpkgs.nix-gitignore;
   dhall = nixpkgs.dhall;
+  git = nixpkgs.git;
+  nodejs = nixpkgs.nodejs;
 }
