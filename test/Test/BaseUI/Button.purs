@@ -6,6 +6,7 @@ import BaseUI.Button as BaseUI
 import BaseUI.Button as Button
 import Effect (Effect)
 import React as React
+import React.DOM as DOM
 import ReactDOM (renderToString)
 import Record (union)
 import Test.Unit (TestSuite, test)
@@ -17,12 +18,12 @@ checkButton = do
   test "Button" do
     quickCheck \( props' ::
         { disabled :: Boolean
-        --, isLoading :: Boolean
-        --, isSelected :: Boolean
-        --, kind :: Button.Kind
+        , isLoading :: Boolean
+        , isSelected :: Boolean
+        , kind :: Button.Kind
         , shape :: Button.Shape
-        --, size :: Button.Size
-        --, type :: Button.Type
+        , size :: Button.Size
+        , type :: Button.Type
         }
     ) ->
       let
@@ -30,11 +31,10 @@ checkButton = do
           props'
             `union`
               { children: unsafeCoerce []
-              --, endEnhancer: const $ DOM.text ""
-              --, startEnhancer: const $ DOM.text ""
+              , endEnhancer: const $ DOM.text ""
+              , startEnhancer: const $ DOM.text ""
               , onClick: (pure unit) :: Effect Unit
-              -- TODO
-              --, overrides: { baseButton: defaultOverride }
+              , overrides: Button.defaultButtonOverrides
               }
 
         _ = renderToString $ React.createLeafElement button props

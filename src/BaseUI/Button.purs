@@ -11,15 +11,18 @@ module BaseUI.Button
   , Size(..)
   , Type(..)
   , ButtonOverrides
+  , defaultButtonOverrides
   ) where
 
 import Prelude
 import BaseUI.Common (Override, OverrideImpl, defaultOverride, overrideToImpl)
+import Data.Function.Uncurried (Fn1, mkFn1)
 import Data.Generic.Rep (class Generic)
 import Effect (Effect)
 import Effect.Uncurried (EffectFn1, mkEffectFn1)
-import React (ReactClass)
+import React (ReactClass, ReactElement)
 import React as React
+import React.DOM as DOM
 import Test.QuickCheck (class Arbitrary)
 import Test.QuickCheck.Arbitrary (genericArbitrary)
 
@@ -36,16 +39,16 @@ type ButtonProps
 
 type ButtonPropsOptional
   = ( disabled :: Boolean
-    --, endEnhancer :: Unit -> ReactElement
-    --, isLoading :: Boolean
-    --, isSelected :: Boolean
-    --, kind :: Kind
+    , endEnhancer :: Unit -> ReactElement
+    , isLoading :: Boolean
+    , isSelected :: Boolean
+    , kind :: Kind
     , onClick :: Effect Unit
-    --   , overrides :: ButtonOverrides
+    , overrides :: ButtonOverrides
     , shape :: Shape
-    --, size :: Size
-    --, startEnhancer :: Unit -> ReactElement
-    --, type :: Type 
+    , size :: Size
+    , startEnhancer :: Unit -> ReactElement
+    , type :: Type
     )
 
 type ButtonPropsMandatory r
@@ -56,16 +59,16 @@ type ButtonPropsMandatory r
 defaultButtonProps :: { | ButtonPropsOptional }
 defaultButtonProps =
   { disabled: false
-  --, endEnhancer: const $ DOM.text ""
-  --, isLoading: false
-  --, isSelected: false
-  --, kind: KindPrimary
+  , endEnhancer: const $ DOM.text ""
+  , isLoading: false
+  , isSelected: false
+  , kind: KindPrimary
   , onClick: pure unit
-  -- , overrides: defaultButtonOverrides
+  , overrides: defaultButtonOverrides
   , shape: ShapeDefault
-  --, size: SizeDefault
-  --, startEnhancer: const $ DOM.text ""
-  --, type: TypeButton
+  , size: SizeDefault
+  , startEnhancer: const $ DOM.text ""
+  , type: TypeButton
   }
 
 type ButtonOverrides
@@ -104,16 +107,16 @@ type ButtonOverridesImpl
 type ButtonPropsImpl
   = { children :: React.Children
     , disabled :: Boolean
-    --, endEnhancer :: Fn1 Unit ReactElement
-    --, isLoading :: Boolean
-    --, isSelected :: Boolean
-    --, kind :: String
+    , endEnhancer :: Fn1 Unit ReactElement
+    , isLoading :: Boolean
+    , isSelected :: Boolean
+    , kind :: String
     , onClick :: EffectFn1 Unit Unit
-    --  , overrides :: ButtonOverridesImpl
+    , overrides :: ButtonOverridesImpl
     , shape :: String
-    --, size :: String
-    --, startEnhancer :: Fn1 Unit ReactElement
-    --, type :: String
+    , size :: String
+    , startEnhancer :: Fn1 Unit ReactElement
+    , type :: String
     }
 
 defaultButtonOverrides :: ButtonOverrides
@@ -122,14 +125,14 @@ defaultButtonOverrides = { baseButton: defaultOverride }
 buttonPropsToImpl :: ButtonProps -> ButtonPropsImpl
 buttonPropsToImpl props =
   props
-    -- endEnhancer = mkFn1 props.endEnhancer  
-    -- , kind = kindToString props.kind
-    { onClick = mkEffectFn1 \_ -> props.onClick
-    --   , overrides = buttonOverridesToImpl props.overrides
+    { endEnhancer = mkFn1 props.endEnhancer
+    , kind = kindToString props.kind
+    , onClick = mkEffectFn1 \_ -> props.onClick
+    , overrides = buttonOverridesToImpl props.overrides
     , shape = shapeToString props.shape
-    -- , size = sizeToString props.size
-    -- , startEnhancer = mkFn1 props.startEnhancer
-    -- , type = typeToString props.type
+    , size = sizeToString props.size
+    , startEnhancer = mkFn1 props.startEnhancer
+    , type = typeToString props.type
     }
 
 buttonOverridesToImpl :: ButtonOverrides -> ButtonOverridesImpl
