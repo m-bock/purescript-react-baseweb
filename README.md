@@ -36,7 +36,7 @@ app =
     ]
 ```
 
-See [examples](example) for more details.
+See [examples](https://thought2.github.io/purescript-react-baseweb/simple.html) and their sources [examples](example) for more details.
 
 ## Coverage
 
