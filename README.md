@@ -1,6 +1,6 @@
 # purescript-baseweb
 
-[![Build Status](https://travis-ci.org/thought2/purescript-react-baseweb.svg?branch=master)](https://travis-ci.org/thought2/purescript-react-baseweb)
+[![Build Status](https://travis-ci.com/thought2/purescript-react-baseweb.svg?branch=master)](https://travis-ci.com/thought2/purescript-react-baseweb)
 
 PureScript wrapper for [Base Web React Components](https://baseweb.design/components/).
 
