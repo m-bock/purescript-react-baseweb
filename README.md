@@ -38,6 +38,19 @@ app =
 
 See [examples](https://thought2.github.io/purescript-react-baseweb/simple.html) and their [sources](example) for more details.
 
+### With `react-basic`
+
+In a `react-basic` app you may want to define a helper function like:
+
+```
+toBasic ::
+  forall props.
+  ReactClass { children :: React.Children | props } ->
+  { children :: Array JSX | props } -> JSX
+toBasic reactClass props =
+  ReactBasic.element (unsafeCoerce reactClass) props
+```
+
 ## Coverage
 
 |                 | Component           | partly             | full |
