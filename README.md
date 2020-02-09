@@ -10,13 +10,13 @@ Uses Version `v9.49.2`
 
 ## Installation
 
-```
+```bash
 bower install purescript-react-baseweb
 ```
 
 ## Usage
 
-```haskell
+```purescript
 
 import BaseUI.Button as Button
 [...]
@@ -42,7 +42,7 @@ See [examples](https://thought2.github.io/purescript-react-baseweb/simple.html) 
 
 In a `react-basic` app you may want to define a helper function like:
 
-```
+```purescript
 toBasic ::
   forall props.
   ReactClass { children :: React.Children | props } ->
