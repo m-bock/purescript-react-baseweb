@@ -43,10 +43,13 @@ See [examples](https://thought2.github.io/purescript-react-baseweb/simple.html) 
 In a `react-basic` app you may want to define a helper function like:
 
 ```purescript
+import React as React
+import React.Basic as ReactBasic
+
 toBasic ::
   forall props.
-  ReactClass { children :: React.Children | props } ->
-  { children :: Array JSX | props } -> JSX
+  React.ReactClass { | props } ->
+  { | props } -> JSX
 toBasic reactClass props =
   ReactBasic.element (unsafeCoerce reactClass) props
 ```
