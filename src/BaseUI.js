@@ -1,6 +1,6 @@
 "use strict";
 
-var baseUI = require("baseui")
+var baseUI = require("baseui");
 
 exports.baseProviderImpl = baseUI.BaseProvider;
 

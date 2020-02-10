@@ -1,50 +1,50 @@
 {
-    "easy-purescript-nix": {
-        "branch": "master",
-        "description": "Easy PureScript (and other tools) with Nix",
-        "homepage": "",
-        "owner": "justinwoo",
-        "repo": "easy-purescript-nix",
-        "rev": "01ae1bc844a4eed1af7dfbbb202fdd297e3441b9",
-        "sha256": "0jx4xb202j43c504gzh27rp9f2571ywdw39dqp6qs76294zwlxkh",
-        "type": "tarball",
-        "url": "https://github.com/justinwoo/easy-purescript-nix/archive/01ae1bc844a4eed1af7dfbbb202fdd297e3441b9.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "niv": {
-        "branch": "master",
-        "description": "Easy dependency management for Nix projects",
-        "homepage": "https://github.com/nmattia/niv",
-        "owner": "nmattia",
-        "repo": "niv",
-        "rev": "49157afd2298749b8a5062fd21079542a6b2de35",
-        "sha256": "0q7ymfrcgagcsw6kr93kprag7k358qj8znyzyri53ci1mrsak5y1",
-        "type": "tarball",
-        "url": "https://github.com/nmattia/niv/archive/49157afd2298749b8a5062fd21079542a6b2de35.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "nixpkgs": {
-        "branch": "nixos-19.09",
-        "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
-        "homepage": "https://github.com/NixOS/nixpkgs",
-        "owner": "NixOS",
-        "repo": "nixpkgs-channels",
-        "rev": "274e095f761b2da76a376d105c41591739350b14",
-        "sha256": "0iw0k1a28ff7qwh3pi7kzlgrgjr61q46qnaryv25m78iig2lkp1y",
-        "type": "tarball",
-        "url": "https://github.com/NixOS/nixpkgs-channels/archive/274e095f761b2da76a376d105c41591739350b14.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    },
-    "yarn2nix": {
-        "branch": "master",
-        "description": "Generate nix expressions from a yarn.lock file",
-        "homepage": null,
-        "owner": "moretea",
-        "repo": "yarn2nix",
-        "rev": "9e7279edde2a4e0f5ec04c53f5cd64440a27a1ae",
-        "sha256": "0zz2lrwn3y3rb8gzaiwxgz02dvy3s552zc70zvfqc0zh5dhydgn7",
-        "type": "tarball",
-        "url": "https://github.com/moretea/yarn2nix/archive/9e7279edde2a4e0f5ec04c53f5cd64440a27a1ae.tar.gz",
-        "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
-    }
+  "easy-purescript-nix": {
+    "branch": "master",
+    "description": "Easy PureScript (and other tools) with Nix",
+    "homepage": "",
+    "owner": "justinwoo",
+    "repo": "easy-purescript-nix",
+    "rev": "01ae1bc844a4eed1af7dfbbb202fdd297e3441b9",
+    "sha256": "0jx4xb202j43c504gzh27rp9f2571ywdw39dqp6qs76294zwlxkh",
+    "type": "tarball",
+    "url": "https://github.com/justinwoo/easy-purescript-nix/archive/01ae1bc844a4eed1af7dfbbb202fdd297e3441b9.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
+  "niv": {
+    "branch": "master",
+    "description": "Easy dependency management for Nix projects",
+    "homepage": "https://github.com/nmattia/niv",
+    "owner": "nmattia",
+    "repo": "niv",
+    "rev": "49157afd2298749b8a5062fd21079542a6b2de35",
+    "sha256": "0q7ymfrcgagcsw6kr93kprag7k358qj8znyzyri53ci1mrsak5y1",
+    "type": "tarball",
+    "url": "https://github.com/nmattia/niv/archive/49157afd2298749b8a5062fd21079542a6b2de35.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
+  "nixpkgs": {
+    "branch": "nixos-19.09",
+    "description": "A read-only mirror of NixOS/nixpkgs tracking the released channels. Send issues and PRs to",
+    "homepage": "https://github.com/NixOS/nixpkgs",
+    "owner": "NixOS",
+    "repo": "nixpkgs-channels",
+    "rev": "274e095f761b2da76a376d105c41591739350b14",
+    "sha256": "0iw0k1a28ff7qwh3pi7kzlgrgjr61q46qnaryv25m78iig2lkp1y",
+    "type": "tarball",
+    "url": "https://github.com/NixOS/nixpkgs-channels/archive/274e095f761b2da76a376d105c41591739350b14.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  },
+  "yarn2nix": {
+    "branch": "master",
+    "description": "Generate nix expressions from a yarn.lock file",
+    "homepage": null,
+    "owner": "moretea",
+    "repo": "yarn2nix",
+    "rev": "9e7279edde2a4e0f5ec04c53f5cd64440a27a1ae",
+    "sha256": "0zz2lrwn3y3rb8gzaiwxgz02dvy3s552zc70zvfqc0zh5dhydgn7",
+    "type": "tarball",
+    "url": "https://github.com/moretea/yarn2nix/archive/9e7279edde2a4e0f5ec04c53f5cd64440a27a1ae.tar.gz",
+    "url_template": "https://github.com/<owner>/<repo>/archive/<rev>.tar.gz"
+  }
 }

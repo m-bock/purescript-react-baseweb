@@ -1,6 +1,12 @@
 language: nix
+
 nix: 2.3.2
-script: nix-build
+
+script:
+  - nix-env -iA cachix -f https://cachix.org/api/v1/install
+  - cachix use thought2
+  - export NIX_PATH=""; nix-build | cachix push thought2
+
 deploy:
   provider: pages
   skip_cleanup: true
