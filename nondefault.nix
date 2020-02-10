@@ -17,7 +17,7 @@ let
       ln -s ${./package.json} $out/package.json
       ln -s ${./yarn.lock} $out/yarn.lock
     '';
-    publishBinsFor = [ "purescript-psa" "parcel" ];
+    publishBinsFor = [ "purescript-psa" "parcel" "prettier" ];
   });
 
   yarnModules = yarn2nix.mkYarnModules packageJsonMeta;

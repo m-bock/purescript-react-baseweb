@@ -29,6 +29,8 @@ format:
 		dhall format --inplace $$src; \
 	done
 
+	prettier --write `git ls-files '*.js' '*.yml' '*.json'`
+
 check-format:
 	for src in `git ls-files '*.nix'` ; do \
 		nixfmt --check $$src; \
@@ -46,6 +48,8 @@ check-format:
 	for src in `git ls-files '*.dhall'` ; do \
 		cat $$src | dhall format --check ; \
 	done
+
+	prettier --check `git ls-files '*.js' '*.yml' '*.json'`
 
 build-src:
 	$(psa) src/**/*.purs
