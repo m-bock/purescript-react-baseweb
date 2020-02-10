@@ -134,7 +134,8 @@ let
       }
       make build-example
 
-      ln -s dist $out   
+      mkdir $out
+      cp -r dist/* -t $out   
     '';
   };
 
