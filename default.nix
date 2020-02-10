@@ -7,17 +7,45 @@ let
 
   yarn2nix' = import sources.yarn2nix { pkgs = nixpkgs; };
 
-in { pkgs ? nixpkgs, runCommand ? pkgs.runCommand
-, mkDerivation ? pkgs.stdenv.mkDerivation, nixfmt ? pkgs.nixfmt
-, spago ? easy-purescript-nix.spago
-, writeShellScriptBin ? pkgs.writeShellScriptBin
-, purs ? easy-purescript-nix.purs-0_13_4
+in {
 
-, yarn2nix ? yarn2nix', yarn ? pkgs.yarn
-, spago2nix ? easy-purescript-nix.spago2nix, fetchgit ? pkgs.fetchgit
-, make ? pkgs.gnumake, bash ? pkgs.bash, nix-gitignore ? pkgs.nix-gitignore
-, dhall ? pkgs.dhall, git ? pkgs.git, nodejs ? pkgs.nodejs
-, purty ? easy-purescript-nix.purty }:
+pkgs ? nixpkgs,
+
+runCommand ? pkgs.runCommand,
+
+mkDerivation ? pkgs.stdenv.mkDerivation,
+
+nixfmt ? pkgs.nixfmt,
+
+spago ? easy-purescript-nix.spago,
+
+writeShellScriptBin ? pkgs.writeShellScriptBin,
+
+purs ? easy-purescript-nix.purs-0_13_4,
+
+yarn2nix ? yarn2nix',
+
+yarn ? pkgs.yarn,
+
+spago2nix ? easy-purescript-nix.spago2nix,
+
+fetchgit ? pkgs.fetchgit,
+
+make ? pkgs.gnumake,
+
+bash ? pkgs.bash,
+
+nix-gitignore ? pkgs.nix-gitignore,
+
+dhall ? pkgs.dhall,
+
+git ? pkgs.git,
+
+nodejs ? pkgs.nodejs,
+
+purty ? easy-purescript-nix.purty
+
+}:
 
 let
   packageJsonMeta = {
