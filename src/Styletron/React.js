@@ -1,5 +1,5 @@
 "use strict";
 
-var styletronReact = require("styletron-react")
+var styletronReact = require("styletron-react");
 
-exports.providerImpl = styletronReact.Provider
+exports.providerImpl = styletronReact.Provider;

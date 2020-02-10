@@ -1,6 +1,6 @@
-{ runCommand, mkDerivation, nixfmt, spago, writeShellScriptBin, purs, yarn2nix
-, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall, git, nodejs, pkgs
-}:
+{ pkgs, runCommand, mkDerivation, nixfmt, spago, writeShellScriptBin, purs
+, yarn2nix, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall, git
+, nodejs, purty }:
 
 let
   packageJsonMeta = {
@@ -25,6 +25,9 @@ let
   cleanSrc = runCommand "src" { } ''
     mkdir $out
     cp -r ${nix-gitignore.gitignoreSource [ ] ./.}/* -t $out
+    cd $out
+    ${git}/bin/git init
+    ${git}/bin/git add --all
     ln -s ${yarnModules}/node_modules $out/node_modules
   '';
 
@@ -39,8 +42,7 @@ let
       TMP=`mktemp -d`
       cd $TMP
 
-      ln -s ${./Makefile} Makefile
-      ln -s ${./src} src
+      cp -r ${pkgs.lib.sourceByRegex ./. [ "^(Makefile|src)$" ]}/* .
 
       bash ${(pkgs.callPackage ./src/spago-packages.nix { }).installSpagoStyle}
       make build-src
@@ -56,9 +58,7 @@ let
       TMP=`mktemp -d`
       cd $TMP
 
-      ln -s ${./Makefile} Makefile
-      ln -s ${./src} src
-      ln -s ${./test} test
+      cp -r ${pkgs.lib.sourceByRegex ./. [ "^(Makefile|src|test)$" ]}/* .
       ln -s ${yarnModules}/node_modules node_modules
 
       bash ${(pkgs.callPackage ./test/spago-packages.nix { }).installSpagoStyle}
@@ -76,9 +76,7 @@ let
       TMP=`mktemp -d`
       cd $TMP
 
-      ln -s ${./Makefile} Makefile
-      ln -s ${./src} src
-      ln -s ${./example} example
+      cp -r ${pkgs.lib.sourceByRegex ./. [ "^(Makefile|src|example)$" ]}/* .
       ln -s ${yarnModules}/node_modules node_modules
 
       bash ${
@@ -93,7 +91,19 @@ let
 in mkDerivation {
   name = "baseweb-env";
   shellHook = "PATH=$PATH:${yarnPackage}/bin";
-  buildInputs = [ nixfmt spago purs yarn spago2nix make' dhall git nodejs ];
+  buildInputs = [
+    yarnPackage
+    nixfmt
+    spago
+    purs
+    yarn
+    spago2nix
+    make'
+    dhall
+    git
+    nodejs
+    purty
+  ];
   buildCommand = ''
     cd ${cleanSrc}
     make check-format

@@ -1,20 +1,13 @@
 {
-    "name": "purescript-react-baseweb",
-    "license": [
-        "MIT"
-    ],
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/thought2/purescript-react-baseweb.git"
-    },
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "output"
-    ],
-    "dependencies": {
-        "purescript-quickcheck": "^v6.1.0",
-        "purescript-react": "^v8.0.0"
-    }
+  "name": "purescript-react-baseweb",
+  "license": ["MIT"],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/thought2/purescript-react-baseweb.git"
+  },
+  "ignore": ["**/.*", "node_modules", "bower_components", "output"],
+  "dependencies": {
+    "purescript-quickcheck": "^v6.1.0",
+    "purescript-react": "^v8.0.0"
+  }
 }

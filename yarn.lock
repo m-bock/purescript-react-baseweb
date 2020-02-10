@@ -4195,6 +4195,11 @@ purgecss@^1.4.0:
     postcss-selector-parser "^6.0.0"
     yargs "^14.0.0"
 
+purty@^4.5.2:
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/purty/-/purty-4.5.2.tgz#ffb40e1738031ce994d96ded14987723fe97a566"
+  integrity sha512-Ai0sONNVfGxsd+BfPZlp+uJvcdH/qbSytpBXDbMi6zryw/GXI1cSCI2AsTPsbiU9X+f2bilcL03D1uOg+EAFKw==
+
 q@^1.1.2:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
