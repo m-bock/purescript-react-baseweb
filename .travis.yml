@@ -5,8 +5,7 @@ nix: 2.3.2
 script:
   - nix-env -iA cachix -f https://cachix.org/api/v1/install
   - cachix use thought2
-  - cachix push thought2 --watch-store &
-  - nix-build
+  - nix-build | cachix push thought2
 
 deploy:
   provider: pages

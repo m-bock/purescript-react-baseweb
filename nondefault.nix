@@ -21,21 +21,6 @@ let
 
   yarnModules = yarn2nix.mkYarnModules packageJsonMeta;
 
-  spagoPkgs = let
-    importSpagoPackages = path:
-      import "${path}/spago-packages.nix" {
-        pkgs = {
-          stdenv = { inherit mkDerivation; };
-          inherit fetchgit;
-          inherit runCommand;
-        };
-      };
-  in {
-    src = importSpagoPackages ./src;
-    example = importSpagoPackages ./example;
-    test = importSpagoPackages ./test;
-  };
-
   cleanSrc = runCommand "src" { } ''
     mkdir $out
     cp -r ${nix-gitignore.gitignoreSource [ ] ./.}/* -t $out
@@ -46,36 +31,72 @@ let
     ${make}/bin/make SHELL="${bash}/bin/bash -O globstar -O extglob" $@
   '';
 
+  buildSrc = mkDerivation {
+    name = "src";
+    buildInputs = [ yarnPackage purs make' ];
+    buildCommand = ''
+      TMP=`mktemp -d`
+      cd $TMP
+
+      ln -s ${./Makefile} Makefile
+      ln -s ${./src} src
+
+      bash ${(import ./src/spago-packages.nix { }).installSpagoStyle}
+      make build-src
+
+      ln -s output $out   
+    '';
+  };
+
+  buildTest = mkDerivation {
+    name = "test";
+    buildInputs = [ yarnPackage purs make' nodejs ];
+    buildCommand = ''
+      TMP=`mktemp -d`
+      cd $TMP
+
+      ln -s ${./Makefile} Makefile
+      ln -s ${./src} src
+      ln -s ${./test} test
+      ln -s ${yarnModules}/node_modules node_modules
+
+      bash ${(import ./test/spago-packages.nix { }).installSpagoStyle}
+      make build-test
+      make check-test
+
+      ln -s output $out   
+    '';
+  };
+
+  buildExample = mkDerivation {
+    name = "example";
+    buildInputs = [ yarnPackage purs make' ];
+    buildCommand = ''
+      TMP=`mktemp -d`
+      cd $TMP
+
+      ln -s ${./Makefile} Makefile
+      ln -s ${./src} src
+      ln -s ${./example} example
+      ln -s ${yarnModules}/node_modules node_modules
+
+      bash ${(import ./example/spago-packages.nix { }).installSpagoStyle}
+      make build-example
+
+      ln -s dist $out   
+    '';
+  };
+
 in mkDerivation {
   name = "baseweb-env";
   shellHook = "PATH=$PATH:${yarnPackage}/bin";
   buildInputs = [ nixfmt spago purs yarn spago2nix make' dhall git nodejs ];
   buildCommand = ''
-    TMP=`mktemp -d`
+    cd ${cleanSrc}
+    make check-format
 
-    cd $TMP
-
-    git init
-
-    PATH=$PATH:${yarnPackage}/bin
-
-    cp -r ${cleanSrc}/* .
-
-    rm -rf .spago dist output
-    bash ${spagoPkgs.src.installSpagoStyle}
-    make build-src
-
-    rm -rf .spago dist output
-    bash ${spagoPkgs.test.installSpagoStyle}
-    make build-test
-    make check-test
-
-    rm -rf .spago dist output
-    bash ${spagoPkgs.example.installSpagoStyle}
-    make build-example
-
-    mkdir $out
-
-    cp -r dist/* -t $out
+    ls ${buildSrc}
+    ls ${buildTest}
+    ln -s ${buildExample} $out
   '';
 }

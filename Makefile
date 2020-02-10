@@ -16,27 +16,24 @@ install:
 clean:
 	rm -rf dist output node_modules
 
-format-nix:
+format:
 	for src in `git ls-files '*.nix'` ; do \
 		nixfmt $$src; \
 	done
 
-format-purs:
 	for src in `git ls-files '*.purs'` ; do \
 		purty $$src --write; \
 	done
 
-format-dhall:
 	for src in `git ls-files '*.dhall'` ; do \
 		dhall format --inplace $$src; \
 	done
 
-check-format-nix:
+check-format:
 	for src in `git ls-files '*.nix'` ; do \
 		nixfmt --check $$src; \
 	done
 
-check-format-purs:
 	for src in `git ls-files '*.purs'` ; do \
 		ACTUAL="`cat $$src`" ; \
 		EXPECTED="`purty $$src`" ; \
@@ -46,14 +43,9 @@ check-format-purs:
 		fi \
 	done
 
-check-format-dhall:
 	for src in `git ls-files '*.dhall'` ; do \
 		cat $$src | dhall format --check ; \
 	done
-
-format: format-nix format-purs format-dhall
-
-check-format: check-format-nix check-format-purs check-format-dhall
 
 build-src:
 	$(psa) src/**/*.purs
