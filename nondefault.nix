@@ -1,5 +1,6 @@
 { runCommand, mkDerivation, nixfmt, spago, writeShellScriptBin, purs, yarn2nix
-, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall, git, nodejs }:
+, yarn, spago2nix, fetchgit, make, bash, nix-gitignore, dhall, git, nodejs, pkgs
+}:
 
 let
   packageJsonMeta = {
@@ -41,7 +42,7 @@ let
       ln -s ${./Makefile} Makefile
       ln -s ${./src} src
 
-      bash ${(import ./src/spago-packages.nix { }).installSpagoStyle}
+      bash ${(pkgs.callPackage ./src/spago-packages.nix { }).installSpagoStyle}
       make build-src
 
       ln -s output $out   
@@ -60,7 +61,7 @@ let
       ln -s ${./test} test
       ln -s ${yarnModules}/node_modules node_modules
 
-      bash ${(import ./test/spago-packages.nix { }).installSpagoStyle}
+      bash ${(pkgs.callPackage ./test/spago-packages.nix { }).installSpagoStyle}
       make build-test
       make check-test
 
@@ -80,7 +81,9 @@ let
       ln -s ${./example} example
       ln -s ${yarnModules}/node_modules node_modules
 
-      bash ${(import ./example/spago-packages.nix { }).installSpagoStyle}
+      bash ${
+        (pkgs.callPackage ./example/spago-packages.nix { }).installSpagoStyle
+      }
       make build-example
 
       ln -s dist $out   
