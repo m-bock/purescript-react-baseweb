@@ -87,7 +87,8 @@ let
       TMP=`mktemp -d`
       cd $TMP
 
-      cp -r ${pkgs.lib.sourceByRegex ./. [ "^(Makefile|src)$" ]}/* .
+      ln -s ${./Makefile} ./Makefile
+      ln -s ${./src} ./src
 
       bash ${(pkgs.callPackage ./src/spago-packages.nix { }).installSpagoStyle}
       make build-src
@@ -103,7 +104,9 @@ let
       TMP=`mktemp -d`
       cd $TMP
 
-      cp -r ${pkgs.lib.sourceByRegex ./. [ "^(Makefile|src|test)$" ]}/* .
+      ln -s ${./Makefile} ./Makefile
+      ln -s ${./src} ./src
+      ln -s ${./test} ./test
       ln -s ${yarnModules}/node_modules node_modules
 
       bash ${(pkgs.callPackage ./test/spago-packages.nix { }).installSpagoStyle}
@@ -121,7 +124,9 @@ let
       TMP=`mktemp -d`
       cd $TMP
 
-      cp -r ${pkgs.lib.sourceByRegex ./. [ "^(Makefile|src|example)$" ]}/* .
+      ln -s ${./Makefile} ./Makefile
+      ln -s ${./src} ./src
+      ln -s ${./example} ./example
       ln -s ${yarnModules}/node_modules node_modules
 
       bash ${
